@@ -1,0 +1,58 @@
+
+
+   <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="container mt-4">
+
+    <!-- Title Field -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        id="title"
+        type="text"
+        class="form-control"
+        formControlName="title"
+        [ngClass]="{ 'is-invalid': isInvalid('title') }"
+      />
+      <div class="invalid-feedback" *ngIf="taskForm.get('title')?.hasError('required')">
+        Title is required.
+      </div>
+      <div class="invalid-feedback" *ngIf="taskForm.get('title')?.hasError('minlength')">
+        Title must be at least 4 characters long.
+      </div>
+      
+    </div>
+  
+    <!-- Description Field -->
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        id="description"
+        class="form-control"
+        formControlName="description"
+        [ngClass]="{ 'is-invalid': isInvalid('description') }"
+      ></textarea>
+      <div class="invalid-feedback" *ngIf="taskForm.get('description')?.hasError('required')">
+        Description is required.
+      </div>
+      
+    </div>
+  
+    <!-- Completed Checkbox -->
+    <div class="form-check mb-3">
+      <input
+        id="completed"
+        type="checkbox"
+        class="form-check-input"
+        formControlName="completed"
+      />
+      <label for="completed" class="form-check-label">Completed</label>
+    </div>
+  
+    <!-- Submit -->
+    <!-- <button type="submit" class="btn btn-primary" [disabled]="taskForm.invalid">
+      Submit
+    </button> -->
+    <button type="submit" class="btn btn-primary" [disabled]="taskForm.invalid">
+        {{ isEditMode() ? 'Update Task' : 'Create Task' }}
+      </button>
+  </form>
+  
